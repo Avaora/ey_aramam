@@ -8,7 +8,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-char	shut_flag;
 char	rx_buf[258];
 char	tx_buf[258];
 void	*ft_read(void *);
@@ -27,7 +26,6 @@ int main(int argc, char *argv[])
 
 	if (argc == 2)
 	{
-		shut_flag = 1;
 		client_sock.sin_family = AF_INET;
 		client_sock.sin_port = htons(4096);
 		client_sock.sin_addr.s_addr = inet_addr(argv[1]);
@@ -58,7 +56,6 @@ int main(int argc, char *argv[])
 
 	else if (argc == 1)
 	{
-		shut_flag = 1;
 		server_sock.sin_family = AF_INET;
 		server_sock.sin_port = htons(4096);
 		server_sock.sin_addr.s_addr = INADDR_ANY;
@@ -77,13 +74,13 @@ int main(int argc, char *argv[])
 			printf("Binding successful\n");
 			listen(listensd, 5);
 			printf("Waiting for a connection request...\n");
-			struc_len = sizeof(struct sockaddr_in);
+			struc_len = sizeof(client_sock);
 			serversd = accept(listensd, 
 			(struct sockaddr*)&client_sock, (socklen_t *)&struc_len);
 			if (serversd >= 0)
 			{
 				printf("A client connected with ip address: %s\n", 
-						ntohs(client_sock.sin_addr.s_addr));
+					inet_ntoa(client_sock.sin_addr));
 				pthread_create(&read_td, NULL, ft_read, &serversd);
 				pthread_create(&write_td, NULL, ft_write, &serversd);
 
@@ -111,14 +108,14 @@ void *ft_read(void *ptr)
 	while (1)
 	{
 		read(sock_desc, rx_buf, sizeof(rx_buf));
-		if ((rx_buf[0] == 0x24) || (shut_flag == 0))
+		if (rx_buf[0] == 0x24)
 		{
 			printf("Connection closed by remote\n");
-			shut_flag = 0;
 			break ;
 		}
 		write(1, rx_buf, strlen(rx_buf));
 	}
+	exit(0);
 	return (0);
 }
 
@@ -129,14 +126,14 @@ void *ft_write(void *ptr)
 	while (1)
 	{
 		fgets(tx_buf, sizeof(tx_buf), stdin);
-		if ((tx_buf[0] == 0x24) || (shut_flag == 0))
+		if (tx_buf[0] == 0x24)
 		{
 			printf("Connection ended\n");
 			write(sock_desc, tx_buf, sizeof(tx_buf));
-			shut_flag = 0;
 			break ;
 		}
 		write(sock_desc, tx_buf, sizeof(tx_buf));
 	}
+	exit(0);
 	return (0);
 }
