@@ -29,19 +29,19 @@ int main(int argc, char *argv[])
 		shut_flag = 1;
 		client_sock.sin_family = AF_INET;
 		client_sock.sin_port = htons(4096);
-		client_sock.sin_port = inet_addr(argv[1]);
+		client_sock.sin_addr.s_addr = inet_addr(argv[1]);
 
 		printf("You are client now\n");
 		clientsd = socket(AF_INET, SOCK_STREAM, 0);
 		if (clientsd < 0)
 		{
-			printf("ERROR: Socket could not created");
+			printf("ERROR: Socket could not created\n");
 			return (0);
 		}
 		else if (connect(clientsd, 
 			(struct sockaddr*)&client_sock, sizeof(client_sock)) == 0)
 		{
-			printf("Connected to server");
+			printf("Connected to server\n");
 
 			pthread_create(&read_td, NULL, ft_read, &clientsd);
 			pthread_create(&write_td, NULL, ft_write, &clientsd);
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 			close(clientsd);
 		}
 		else
-			printf("ERROR: Could not connected to server");
+			printf("ERROR: Could not connected to server\n");
 	}
 
 	else if (argc == 1)
