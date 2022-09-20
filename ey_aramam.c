@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 {
 	pthread_t	read_td;
 	pthread_t	write_td;
+	int	struc_len;
 	int	clientsd;
 	int	serversd;
 	int	listensd;
@@ -76,8 +77,9 @@ int main(int argc, char *argv[])
 			printf("Binding successful\n");
 			listen(listensd, 5);
 			printf("Waiting for a connection request...\n");
+			struc_len = sizeof(struct sockaddr_in);
 			serversd = accept(listensd, 
-			(struct sockaddr*)&client_sock, (socklen_t *)sizeof(client_sock));
+			(struct sockaddr*)&client_sock, (socklen_t *)&struc_len);
 			if (serversd >= 0)
 			{
 				printf("A client connected with ip address: %s\n", 
