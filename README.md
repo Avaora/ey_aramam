@@ -18,10 +18,10 @@ inet is the address you looking for
 ## Finding ip address of the server
 `ifconfig | grep -A 4 en0`  
 ## Example
-firstly you have to start server typing this  
+### firstly you have to start server typing this  
 `./ey_aramam`  
-after server started you can connect to it with ip address of the server  
-`./ey_aramam 127.0.0.1`
+### after server started you can connect to it with ip address of the server  
+`./ey_aramam 127.0.0.1`  
 in this case server's ip address is 127.0.0.1  
 and then you are ready to type a message  
 enjoy it !!!
