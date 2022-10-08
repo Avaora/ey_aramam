@@ -1,10 +1,6 @@
 this program connects two computer peer to peer on the same network.
 you have to start server firstly and then client.
-after server started client can connect to it with ip address of the server
-# Finding ip address of the server
-`ifconfig | grep -A 4 en0`  
-
-inet is the address you looking for
+after server started client can connect to it with ip address of the server  
 ## For Downloading
 `git clone https://Avaora/ey_aramam.git`
 
@@ -17,6 +13,7 @@ inet is the address you looking for
 # Usage
 ## Finding ip address of the server
 `ifconfig | grep -A 4 en0`  
+inet address is the ip address you looking for
 ## Example
 ### firstly you have to start the server by typing this  
 type this on the copmuter you want to connect to
