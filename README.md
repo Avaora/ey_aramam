@@ -16,7 +16,7 @@ after server started client can connect to it with ip address of the server
 inet address is the ip address you looking for
 ## Example
 ### firstly you have to start the server by typing this  
-type this on the copmuter you want to connect to
+type this on the computer you want to connect to
 `./ey_aramam`  
 ### after server started you can connect to it with ip address of the server
 type this on the computer you want to request to server for connection
