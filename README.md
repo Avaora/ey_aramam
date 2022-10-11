@@ -2,7 +2,7 @@ this program connects two computer peer to peer on the same network.
 you have to start server firstly and then client.
 after server started client can connect to it with ip address of the server  
 ## For Downloading
-`git clone https://Avaora/ey_aramam.git`
+`git clone https://github.com/Avaora/ey_aramam.git`
 
 ## For Compiling
 `gcc ey_aramam.c -lpthread -o ey_aramam`
